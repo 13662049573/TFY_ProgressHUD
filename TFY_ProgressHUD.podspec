@@ -19,7 +19,7 @@ Pod::Spec.new do |spec|
 
 
 
-  spec.source_files  = "TFY_ProgressHUD/**/*.{h,m}"
+  spec.source_files  = "TFY_ProgressHUD/TFY_ProgressHUD/*.{h,m}"
   
   spec.resources     = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle"
 
