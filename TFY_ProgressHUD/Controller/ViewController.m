@@ -17,7 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [TFY_ProgressHUD showSuccessWithStatus:@"成功显示!"];
 }
 
 
