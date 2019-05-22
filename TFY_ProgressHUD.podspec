@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "TFY_ProgressHUD"
-  spec.version      = "2.0.0"
+  spec.version      = "2.2.0"
   spec.summary      = "完美提示框，使用各种场合"
 
   # This description is used to generate tags and improve search results.
