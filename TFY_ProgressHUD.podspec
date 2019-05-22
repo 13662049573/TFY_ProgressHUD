@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   spec.resources = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle"
 
 
-  spec.frameworks = "AvailabilityMacros","QuartzCore"
+  spec.frameworks = "AvailabilityMacros","QuartzCore","UIKit"
 
   
   spec.requires_arc = true
