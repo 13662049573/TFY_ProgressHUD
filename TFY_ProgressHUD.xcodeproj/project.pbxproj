@@ -473,6 +473,7 @@
 				DEVELOPMENT_TEAM = SEXG86U92J;
 				INFOPLIST_FILE = TFY_ProgressHUD/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -491,6 +492,7 @@
 				DEVELOPMENT_TEAM = SEXG86U92J;
 				INFOPLIST_FILE = TFY_ProgressHUD/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
