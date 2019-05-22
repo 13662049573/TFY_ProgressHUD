@@ -15,8 +15,8 @@
 		3655DAE722953B2F001CAE7B /* TFY_ProgressHUDUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DAE622953B2F001CAE7B /* TFY_ProgressHUDUITests.m */; };
 		3655DAFE22953B75001CAE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DAF622953B75001CAE7B /* AppDelegate.m */; };
 		3655DAFF22953B75001CAE7B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DAF822953B75001CAE7B /* ViewController.m */; };
-		3655DB0622954457001CAE7B /* TFY_ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DB0422954457001CAE7B /* TFY_ProgressHUD.m */; };
-		3655DB0722954457001CAE7B /* TFY_ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3655DB0522954457001CAE7B /* TFY_ProgressHUD.bundle */; };
+		3655DB0C22954503001CAE7B /* TFY_ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */; };
+		3655DB0D22954503001CAE7B /* TFY_ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +53,9 @@
 		3655DAF622953B75001CAE7B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3655DAF822953B75001CAE7B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3655DAF922953B75001CAE7B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3655DB0322954457001CAE7B /* TFY_ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFY_ProgressHUD.h; sourceTree = "<group>"; };
-		3655DB0422954457001CAE7B /* TFY_ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFY_ProgressHUD.m; sourceTree = "<group>"; };
-		3655DB0522954457001CAE7B /* TFY_ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TFY_ProgressHUD.bundle; sourceTree = "<group>"; };
+		3655DB0922954503001CAE7B /* TFY_ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFY_ProgressHUD.h; sourceTree = "<group>"; };
+		3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFY_ProgressHUD.m; sourceTree = "<group>"; };
+		3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TFY_ProgressHUD.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 		3655DAC122953B2E001CAE7B /* TFY_ProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				3655DB0222954457001CAE7B /* TFY_ProgressHUDKit */,
+				3655DB0822954503001CAE7B /* TFY_ProgressHUD */,
 				3655DAF422953B75001CAE7B /* AppDelegate */,
 				3655DAF722953B75001CAE7B /* Controller */,
 				3655DAC822953B2E001CAE7B /* Main.storyboard */,
@@ -154,14 +154,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		3655DB0222954457001CAE7B /* TFY_ProgressHUDKit */ = {
+		3655DB0822954503001CAE7B /* TFY_ProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				3655DB0322954457001CAE7B /* TFY_ProgressHUD.h */,
-				3655DB0422954457001CAE7B /* TFY_ProgressHUD.m */,
-				3655DB0522954457001CAE7B /* TFY_ProgressHUD.bundle */,
+				3655DB0922954503001CAE7B /* TFY_ProgressHUD.h */,
+				3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */,
+				3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */,
 			);
-			path = TFY_ProgressHUDKit;
+			path = TFY_ProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +269,7 @@
 			files = (
 				3655DACF22953B2F001CAE7B /* LaunchScreen.storyboard in Resources */,
 				3655DACC22953B2F001CAE7B /* Assets.xcassets in Resources */,
-				3655DB0722954457001CAE7B /* TFY_ProgressHUD.bundle in Resources */,
+				3655DB0D22954503001CAE7B /* TFY_ProgressHUD.bundle in Resources */,
 				3655DACA22953B2E001CAE7B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,7 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3655DB0622954457001CAE7B /* TFY_ProgressHUD.m in Sources */,
+				3655DB0C22954503001CAE7B /* TFY_ProgressHUD.m in Sources */,
 				3655DAFF22953B75001CAE7B /* ViewController.m in Sources */,
 				3655DAFE22953B75001CAE7B /* AppDelegate.m in Sources */,
 				3655DAD222953B2F001CAE7B /* main.m in Sources */,
