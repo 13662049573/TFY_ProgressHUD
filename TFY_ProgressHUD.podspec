@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   
   spec.license      = "MIT"
   
-  spec.author             = { "tianfengyou" => "420144542@qq.com" }
+  spec.author       = { "tianfengyou" => "420144542@qq.com" }
   
   spec.platform     = :ios
   
@@ -21,12 +21,12 @@ Pod::Spec.new do |spec|
 
   spec.source_files  = "TFY_ProgressHUD/TFY_ProgressHUD/**/*.{h,m}"
   
-  spec.resources = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle"
+  spec.resources     = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle"
 
 
-  spec.frameworks = "AvailabilityMacros","QuartzCore","UIKit"
+  spec.frameworks    = "AvailabilityMacros","QuartzCore","UIKit"
 
   
-  spec.requires_arc = true
+  spec.requires_arc  = true
 
 end
