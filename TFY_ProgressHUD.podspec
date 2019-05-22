@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   
   spec.author       = { "tianfengyou" => "420144542@qq.com" }
   
-  spec.platform     = :ios
+  spec.platform     = :ios, "10.0"
   
 
   spec.source       = { :git => "https://github.com/13662049573/TFY_ProgressHUD.git", :tag => spec.version }
