@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		36241FDB229628E100AFE2B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36241FDA229628E100AFE2B2 /* UIKit.framework */; };
 		36241FDD2296293700AFE2B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36241FDC2296293700AFE2B2 /* QuartzCore.framework */; };
+		36241FDF229629D000AFE2B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36241FDE229629D000AFE2B2 /* Foundation.framework */; };
 		3655DACA22953B2E001CAE7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3655DAC822953B2E001CAE7B /* Main.storyboard */; };
 		3655DACC22953B2F001CAE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3655DACB22953B2F001CAE7B /* Assets.xcassets */; };
 		3655DACF22953B2F001CAE7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3655DACD22953B2F001CAE7B /* LaunchScreen.storyboard */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		36241FDA229628E100AFE2B2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		36241FDC2296293700AFE2B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		36241FDE229629D000AFE2B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3655DABF22953B2E001CAE7B /* TFY_ProgressHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TFY_ProgressHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3655DAC922953B2E001CAE7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3655DACB22953B2F001CAE7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36241FDF229629D000AFE2B2 /* Foundation.framework in Frameworks */,
 				36241FDD2296293700AFE2B2 /* QuartzCore.framework in Frameworks */,
 				36241FDB229628E100AFE2B2 /* UIKit.framework in Frameworks */,
 			);
@@ -92,6 +95,7 @@
 		36241FD9229628E100AFE2B2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36241FDE229629D000AFE2B2 /* Foundation.framework */,
 				36241FDC2296293700AFE2B2 /* QuartzCore.framework */,
 				36241FDA229628E100AFE2B2 /* UIKit.framework */,
 			);
