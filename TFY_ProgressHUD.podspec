@@ -24,9 +24,10 @@ Pod::Spec.new do |spec|
   spec.resources     = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle"
 
 
-  spec.frameworks    = "AvailabilityMacros","QuartzCore","UIKit"
+  spec.frameworks    = "Foundation","UIKit"
 
-  
+  spec.xcconfig      = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/AvailabilityMacros" }
+
   spec.requires_arc  = true
 
 end
