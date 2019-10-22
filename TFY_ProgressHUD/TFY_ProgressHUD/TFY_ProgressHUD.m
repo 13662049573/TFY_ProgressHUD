@@ -516,7 +516,7 @@ typedef enum : NSUInteger{
 #pragma mark - Getters
 
 - (UIWindow *)overlayWindow {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
     if (!window) {
         window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     }
