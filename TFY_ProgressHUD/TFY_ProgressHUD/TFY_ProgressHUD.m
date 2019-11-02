@@ -429,7 +429,7 @@ typedef enum : NSUInteger{
 }
 
 - (void)dismissWithNoAni{
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [NotificationCenter removeObserver:self];
     //    OMGLog(@"*****************");
     [self.hudView removeFromSuperview];
