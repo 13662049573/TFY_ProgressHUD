@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "TFY_ProgressHUD"
-  spec.version      = "2.2.0"
+  spec.version      = "2.2.2"
   spec.summary      = "完美提示框，使用各种场合"
   spec.description  = "完美提示框，使用各种场合"
 
