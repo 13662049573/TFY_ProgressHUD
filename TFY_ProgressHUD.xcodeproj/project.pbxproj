@@ -20,6 +20,7 @@
 		3655DAFF22953B75001CAE7B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DAF822953B75001CAE7B /* ViewController.m */; };
 		3655DB0C22954503001CAE7B /* TFY_ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */; };
 		3655DB0D22954503001CAE7B /* TFY_ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */; };
+		36581B88236E461E001E8B17 /* TFY_PopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 36581B87236E461E001E8B17 /* TFY_PopupMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,9 @@
 		3655DB0922954503001CAE7B /* TFY_ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFY_ProgressHUD.h; sourceTree = "<group>"; };
 		3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFY_ProgressHUD.m; sourceTree = "<group>"; };
 		3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TFY_ProgressHUD.bundle; sourceTree = "<group>"; };
+		36581B86236E461E001E8B17 /* TFY_PopupMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_PopupMenu.h; sourceTree = "<group>"; };
+		36581B87236E461E001E8B17 /* TFY_PopupMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFY_PopupMenu.m; sourceTree = "<group>"; };
+		36581B8C236E514D001E8B17 /* TFY_PromptpopupHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_PromptpopupHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,9 @@
 				3655DB0922954503001CAE7B /* TFY_ProgressHUD.h */,
 				3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */,
 				3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */,
+				36581B86236E461E001E8B17 /* TFY_PopupMenu.h */,
+				36581B87236E461E001E8B17 /* TFY_PopupMenu.m */,
+				36581B8C236E514D001E8B17 /* TFY_PromptpopupHeader.h */,
 			);
 			path = TFY_ProgressHUD;
 			sourceTree = "<group>";
@@ -315,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36581B88236E461E001E8B17 /* TFY_PopupMenu.m in Sources */,
 				3655DB0C22954503001CAE7B /* TFY_ProgressHUD.m in Sources */,
 				3655DAFF22953B75001CAE7B /* ViewController.m in Sources */,
 				3655DAFE22953B75001CAE7B /* AppDelegate.m in Sources */,
