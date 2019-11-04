@@ -612,7 +612,7 @@ const PopupLayout PopupLayout_Center = { PopupHorizontalLayout_Center, PopupVert
             
         }completion:^(BOOL finished){
             
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+//            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
             if(self.alpha == 0) {
                 [NotificationCenter removeObserver:self];
                 [self.hudView removeFromSuperview];
