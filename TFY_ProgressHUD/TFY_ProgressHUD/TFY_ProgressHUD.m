@@ -216,7 +216,7 @@ const PopupLayout PopupLayout_Center = { PopupHorizontalLayout_Center, PopupVert
 #pragma mark - Dismiss Methods
 
 + (void)dismiss {
-    [[TFY_ProgressHUD sharedView] dismiss];
+    [[TFY_ProgressHUD sharedView] dismiss_two];
 }
 
 + (void)dismissWithSuccess:(NSString *)successString {

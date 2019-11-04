@@ -221,7 +221,7 @@ extern const PopupLayout PopupLayout_Center;
  */
 + (void)setStatus:(NSString*)string;
 /**
- *  简单地用淡出+缩放动画来解散HUD。
+ *  提示框 结束简单地用淡出+缩放动画来解散HUD。
  */
 + (void)dismiss;
 /**
@@ -242,7 +242,9 @@ extern const PopupLayout PopupLayout_Center;
 + (TFY_ProgressHUD*)sharedView;
 
 - (void)dismissWithNoAni;
-
+/**
+ *  添加View弹出
+ */
 - (void)show;
 
 - (void)showWithLayout:(PopupLayout)layout;
@@ -255,7 +257,7 @@ extern const PopupLayout PopupLayout_Center;
 
 - (void)showAtCenterPoint:(CGPoint)point inView:(UIView *)view duration:(NSTimeInterval)duration;
 /**
- *   取消所有提示
+ *  自己添加View 取消所有提示
  */
 - (void)dismissAnimated:(BOOL)animated;
 @end
