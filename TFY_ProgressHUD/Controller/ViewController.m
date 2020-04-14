@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "TFY_ProgressHUD.h"
+#import "TFY_PromptpopupHeader.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) UIView *contentView;
