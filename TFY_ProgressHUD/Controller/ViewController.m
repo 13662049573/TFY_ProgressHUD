@@ -22,10 +22,10 @@
     self.contentView.backgroundColor = [UIColor cyanColor];
     
     self.view.backgroundColor = [UIColor cyanColor];
-    NSArray *arr = @[@"文字提示",@"文字加枚举类型",@"枚举类型",@"展示成功的状态",@"成功加时间设计",@"失败提示",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出"];
+    NSArray *arr = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变"];
     for (NSInteger i = 0; i<arr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 40+i*60, [UIScreen mainScreen].bounds.size.width, 50);
+        btn.frame = CGRectMake(0, 60+i*60, [UIScreen mainScreen].bounds.size.width, 50);
         btn.backgroundColor = [UIColor orangeColor];
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.tag = i;
@@ -38,60 +38,59 @@
 
 -(void)btnClick:(UIButton *)btn{
     if (btn.tag==0) {
-        [TFY_ProgressHUD showWithStatus:@"提示！"];
-        [self performSelector:@selector(hpv) withObject:nil afterDelay:1.5];
+        [TFY_ProgressHUD showWithStatus:@"提示f按时发动机号开发八十块的部分科室的本开放式包开发不舍得恐怖富士康部分深刻本科生版本发卡社保卡福布斯卡福布斯卡本菲卡吧你福克斯拿手机可能"];
     }
     else if (btn.tag==1){
-        [TFY_ProgressHUD showWithStatus:@"提示" maskType:PopupMaskType_Gradient];
-        [TFY_ProgressHUD dismissWithError:@"阿噶几发件方；阿发" afterDelay:1.3];
+        [TFY_ProgressHUD showWithStatus:@"提示" maskType:TFY_PopupMaskType_Clear];
     }
     else if (btn.tag==2){
-        [TFY_ProgressHUD showWithMaskType:PopupMaskType_None];
-        [TFY_ProgressHUD dismissWithSuccess:@"关闭" afterDelay:1.5];
+        [TFY_ProgressHUD showSuccessWithStatus:@"爱上大开杀戒档卡户"];
     }
     else if (btn.tag==3){
-        [TFY_ProgressHUD showSuccessWithStatus:@"陈哥哥哥"];
+        [TFY_ProgressHUD showSuccessWithStatus:@"按加号发了疯哈佛" duration:3];
     }
     else if (btn.tag==4){
-        [TFY_ProgressHUD showSuccessWithStatus:@"按加号发了疯哈佛" duration:1.5];
-    }
-    else if (btn.tag==5){
         [TFY_ProgressHUD showErrorWithStatus:@"尽快发货伐啦回复啦回复了"];
     }
-    else if (btn.tag==6){
-        [TFY_ProgressHUD showErrorWithStatus:@"lxiuasnla" duration:2];
+    else if (btn.tag==5){
+        [TFY_ProgressHUD showErrorWithStatus:@"lxiuasnla" duration:4];
     }
-    else if (btn.tag==7){
+    else if (btn.tag==6){
         [TFY_ProgressHUD showPromptWithStatus:@"发举案说法开发"];
     }
-    else if (btn.tag==8){
+    else if (btn.tag==7){
         [TFY_ProgressHUD showPromptWithStatus:@"就会发回复拉回来发了疯" duration:1];
     }
-    else if (btn.tag==9){
-        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:PopupShowType_FadeIn dismissType:PopupDismissType_FadeOut maskType:PopupMaskType_Clear dismissOnBackgroundTouch:NO dismissOnContentTouch:YES];
+    else if (btn.tag==8){
+        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_FadeIn dismissType:TFY_PopupDismissType_FadeOut maskType:TFY_PopupMaskType_Clear dismissOnBackgroundTouch:NO dismissOnContentTouch:YES];
         [popView show];
         
     }
+    else if (btn.tag==9){
+        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_ShrinkIn dismissType:TFY_PopupDismissType_ShrinkOut maskType:TFY_PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        [popView showWithDuration:2];
+    }
     else if (btn.tag==10){
-        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:PopupShowType_ShrinkIn dismissType:PopupDismissType_ShrinkOut maskType:PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_SlideInFromBottom dismissType:TFY_PopupDismissType_SlideOutToBottom maskType:TFY_PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
         [popView showWithDuration:2];
     }
     else if (btn.tag==11){
-        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:PopupShowType_SlideInFromBottom dismissType:PopupDismissType_SlideOutToBottom maskType:PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_SlideInFromTop dismissType:TFY_PopupDismissType_SlideOutToTop maskType:TFY_PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
         [popView showWithDuration:2];
     }
     else if (btn.tag==12){
-        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:PopupShowType_SlideInFromTop dismissType:PopupDismissType_SlideOutToTop maskType:PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_BounceIn dismissType:TFY_PopupDismissType_BounceOut maskType:TFY_PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
         [popView showWithDuration:2];
     }
     else if (btn.tag==13){
-        TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:PopupShowType_BounceIn dismissType:PopupDismissType_BounceOut maskType:PopupMaskType_None dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
-           [popView showWithDuration:2];
+        TFY_ProgressHUD *popview = [[TFY_ProgressHUD alloc]initWithFrame:UIScreen.mainScreen.bounds];
+        popview.contentView = self.contentView;
+        popview.showType = TFY_PopupShowType_GrowIn;
+        popview.dismissType = TFY_PopupDismissType_GrowOut;
+        popview.showInDuration = 2;
+        [popview show];
     }
     
 }
 
--(void)hpv{
-    [TFY_ProgressHUD dismissWithError:@"按时发啦发啦"];
-}
 @end
