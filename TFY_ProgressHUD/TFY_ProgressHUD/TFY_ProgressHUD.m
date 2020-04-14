@@ -332,6 +332,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
     CGRect labelRect = CGRectZero;
     
     if(content!=nil || ![content isEqualToString:@""]) {
+        
         CGSize stringSize = [self sizeWithText:content maxSize:CGSizeMake(TFY_HUD_DEBI_width(200), TFY_HUD_DEBI_width(300)) fontSize:self.stringLabel.font];
         stringWidth = stringSize.width;
         stringHeight = stringSize.height;

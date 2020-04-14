@@ -38,7 +38,7 @@
 
 -(void)btnClick:(UIButton *)btn{
     if (btn.tag==0) {
-        [TFY_ProgressHUD showWithStatus:@"提示f按时发动机号开发八十块的部分科室的本开放式包开发不舍得恐怖富士康部分深刻本科生版本发卡社保卡福布斯卡福布斯卡本菲卡吧你福克斯拿手机可能"];
+        [TFY_ProgressHUD showWithStatus:@"提示按时发动机号开发八十块的部分科室的本开放式包开发不舍得恐怖富士康"];
     }
     else if (btn.tag==1){
         [TFY_ProgressHUD showWithStatus:@"提示" maskType:TFY_PopupMaskType_Clear];
