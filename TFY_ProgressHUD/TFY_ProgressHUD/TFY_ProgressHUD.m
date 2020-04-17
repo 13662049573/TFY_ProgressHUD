@@ -406,7 +406,15 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
             strongSelf.backgroundView.alpha = 0.0;
             if (strongSelf.maskType == TFY_PopupMaskType_Dimmed) {
                 strongSelf.backgroundView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:strongSelf.dimmedMaskAlpha];
-            } else {
+                strongSelf.shouldDismissOnBackgroundTouch = NO;
+                strongSelf.shouldDismissOnContentTouch = NO;
+            }
+            if (strongSelf.maskType == TFY_PopupMaskType_Clear) {
+                strongSelf.backgroundView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:strongSelf.dimmedMaskAlpha];
+                strongSelf.shouldDismissOnBackgroundTouch = YES;
+                strongSelf.shouldDismissOnContentTouch = NO;
+            }
+            if (strongSelf.maskType == TFY_PopupMaskType_None) {
                 strongSelf.backgroundView.backgroundColor = UIColor.clearColor;
             }
             
