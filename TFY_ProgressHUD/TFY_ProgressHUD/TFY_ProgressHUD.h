@@ -166,7 +166,7 @@ extern const TFY_PopupLayout TFY_PopupLayout_Center;
 /**
  * 弹出一个自定义视图 contentView 自定义视图  showType 弹出动画 dismissType 消失动画 maskType 交互类型 shouldDismissOnBackgroundTouch 当背景被触摸时，弹出窗口会消失 默认yes shouldDismissOnContentTouch 当内容视图被触摸时，弹出窗口会消失默认no
  */
-+ (TFY_ProgressHUD *)popupWithContentView:(UIView *)contentView showType:(TFY_PopupShowType)showType dismissType:(TFY_PopupDismissType)dismissType maskType:(TFY_PopupMaskType)maskType dismissOnBackgroundTouch:(BOOL)shouldDismissOnBackgroundTouch dismissOnContentTouch:(BOOL)shouldDismissOnContentTouch;
++ (TFY_ProgressHUD *)popupWithContentView:(UIView *)contentView showType:(TFY_PopupShowType)showType dismissType:(TFY_PopupDismissType)dismissType maskType:(TFY_PopupMaskType)maskType;
 
 
 + (void)dismissAllPopups;
