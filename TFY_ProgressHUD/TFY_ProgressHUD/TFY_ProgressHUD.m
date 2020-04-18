@@ -723,6 +723,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
             }
             
             void (^completionBlock)(BOOL) = ^(BOOL finished) {
+                [strongSelf.spinnerView stopAnimating];
                 [strongSelf.hudView removeFromSuperview];
                 strongSelf.hudView = nil;
                 [strongSelf.stringLabel removeFromSuperview];
