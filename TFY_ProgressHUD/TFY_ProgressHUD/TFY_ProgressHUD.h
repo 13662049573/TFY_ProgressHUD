@@ -171,6 +171,8 @@ extern const TFY_PopupLayout TFY_PopupLayout_Center;
 
 + (void)dismissAllPopups;
 
++ (void)dismissStatus:(NSString *)string;
+
 + (void)dismissPopupForView:(UIView *)view animated:(BOOL)animated;
 
 + (void)dismissSuperPopupIn:(UIView *)view animated:(BOOL)animated;

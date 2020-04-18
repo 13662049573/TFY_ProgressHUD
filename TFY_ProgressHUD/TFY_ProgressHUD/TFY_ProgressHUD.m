@@ -241,6 +241,10 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
     }
 }
 
++ (void)dismissStatus:(NSString *)string{
+    [[TFY_ProgressHUD sharedView] showToastVieWiththContent:string showType:TFY_PopupShowType_FadeIn dismissType:TFY_PopupDismissType_ShrinkOut maskType:TFY_PopupMaskType_None Status:ProgressHUD_PROMPT stopTime:1.5];
+}
+
 + (void)dismissPopupForView:(UIView *)view animated:(BOOL)animated {
     [view dismissShowingPopup:animated];
 }
