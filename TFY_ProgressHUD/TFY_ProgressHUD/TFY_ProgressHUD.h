@@ -168,29 +168,47 @@ extern const TFY_PopupLayout TFY_PopupLayout_Center;
  */
 + (TFY_ProgressHUD *)popupWithContentView:(UIView *)contentView showType:(TFY_PopupShowType)showType dismissType:(TFY_PopupDismissType)dismissType maskType:(TFY_PopupMaskType)maskType;
 
-
+/**关闭所有弹出框*/
 + (void)dismissAllPopups;
-
+/**
+ * 关闭提示框 (只对提示框有效)
+ */
++ (void)dismiss;
+/**
+ * 关闭文本 (只对提示框有效)
+ */
 + (void)dismissStatus:(NSString *)string;
-
-+ (void)dismissPopupForView:(UIView *)view animated:(BOOL)animated;
-
+/**
+ * 关闭自定义对应View
+ */
 + (void)dismissSuperPopupIn:(UIView *)view animated:(BOOL)animated;
-
+/**
+ * 自定义View 弹出
+ */
 - (void)show;
-
+/**
+ * 自定义弹出框适应横竖屏
+ */
 - (void)showWithLayout:(TFY_PopupLayout)layout;
-
+/**
+ *  自定义View 弹出时间
+ */
 - (void)showWithDuration:(NSTimeInterval)duration;
-
+/**
+ * 自定义弹出框适应横竖屏 启动时间
+ */
 - (void)showWithLayout:(TFY_PopupLayout)layout duration:(NSTimeInterval)duration;
-
+/**
+ * 自定义弹出框位置
+ */
 - (void)showAtCenterPoint:(CGPoint)point inView:(UIView *)view;
-
+/**
+ * 自定义弹出框位置 时间
+ */
 - (void)showAtCenterPoint:(CGPoint)point inView:(UIView *)view duration:(NSTimeInterval)duration;
 
 /**
-  取消所有提示 animated 是否需要动画
+ * 取消所有提示 animated 是否需要动画
  */
 - (void)dismissAnimated:(BOOL)animated;
 

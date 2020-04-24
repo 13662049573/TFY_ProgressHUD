@@ -9,6 +9,10 @@
 #import "ViewController.h"
 #import "TFY_PromptpopupHeader.h"
 
+#define LM_QueueStartAfterTime(time) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+
+#define LM_queueEnd  });
+
 @interface ViewController ()
 @property (nonatomic, strong) UIView *contentView;
 @end
@@ -19,6 +23,13 @@
     [super viewDidLoad];
     
     self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 500)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(0, 200, 300, 40);
+    [btn setTitle:@"关闭" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setBackgroundColor:[UIColor blueColor]];
+    [btn addTarget:self action:@selector(dismissClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:btn];
     self.contentView.backgroundColor = [UIColor cyanColor];
     
     self.view.backgroundColor = [UIColor cyanColor];
@@ -39,9 +50,13 @@
 -(void)btnClick:(UIButton *)btn{
     if (btn.tag==0) {
         [TFY_ProgressHUD showWithStatus:@"提示按时发动机号开发八十块的部分科室的本开放式包开发不舍得恐怖富士康"];
+        
     }
     else if (btn.tag==1){
-        [TFY_ProgressHUD showWithStatus:@"提示" maskType:TFY_PopupMaskType_Clear];
+        [TFY_ProgressHUD showWithStatus:@"限制交互提示框" maskType:TFY_PopupMaskType_Dimmed];
+        LM_QueueStartAfterTime(4)
+        [TFY_ProgressHUD dismiss];
+        LM_queueEnd
     }
     else if (btn.tag==2){
         [TFY_ProgressHUD showSuccessWithStatus:@"爱上大开杀戒档卡户"];
@@ -54,6 +69,7 @@
     }
     else if (btn.tag==5){
         [TFY_ProgressHUD showErrorWithStatus:@"lxiuasnla" duration:4];
+        
     }
     else if (btn.tag==6){
         [TFY_ProgressHUD showPromptWithStatus:@"发举案说法开发"];
@@ -93,4 +109,7 @@
     
 }
 
+-(void)dismissClick{
+    [TFY_ProgressHUD dismissSuperPopupIn:self.contentView animated:YES];
+}
 @end
