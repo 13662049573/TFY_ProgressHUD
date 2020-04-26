@@ -133,7 +133,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
         }
         return _maskType == TFY_PopupMaskType_None ? nil : hitView;
     } else {
-        if ([hitView isDescendantOfView:_containerView] && _shouldDismissOnContentTouch) {
+        if ([hitView isDescendantOfView:_containerView] && _shouldDismissOnContentTouch) {//subview是否是superView的子视图
             [self dismissAnimated:YES];
         }
         return hitView;
