@@ -13,8 +13,10 @@
 
 #define LM_queueEnd  });
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic , strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, copy)NSArray *array;
 @end
 
 @implementation ViewController
@@ -32,73 +34,90 @@
     [self.contentView addSubview:btn];
     self.contentView.backgroundColor = [UIColor cyanColor];
     
-    self.view.backgroundColor = [UIColor cyanColor];
-    NSArray *arr = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变"];
-    for (NSInteger i = 0; i<arr.count; i++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 60+i*60, [UIScreen mainScreen].bounds.size.width, 50);
-        btn.backgroundColor = [UIColor orangeColor];
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        btn.tag = i;
-        [btn setTitle:arr[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+    self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变"];
+    
+    [self.view addSubview:self.tableView];
+    
 }
 
--(void)btnClick:(UIButton *)btn{
-    if (btn.tag==0) {
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    self.tableView.frame = self.view.bounds;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.array.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    if (!cell) {
+        cell  = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+    }
+    cell.textLabel.text = self.array[indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self btnClick:indexPath];
+}
+
+-(void)btnClick:(NSIndexPath *)indexPath{
+    if (indexPath.row==0) {
         [TFY_ProgressHUD showWithStatus:@"提示按时发动机号开发八十块的部分科室的本开放式包开发不舍得恐怖富士康"];
         
     }
-    else if (btn.tag==1){
+    else if (indexPath.row==1){
         [TFY_ProgressHUD showWithStatus:@"限制交互提示框" maskType:TFY_PopupMaskType_Dimmed];
         LM_QueueStartAfterTime(4)
         [TFY_ProgressHUD dismiss];
         LM_queueEnd
     }
-    else if (btn.tag==2){
+    else if (indexPath.row==2){
         [TFY_ProgressHUD showSuccessWithStatus:@"爱上大开杀戒档卡户"];
     }
-    else if (btn.tag==3){
+    else if (indexPath.row==3){
         [TFY_ProgressHUD showSuccessWithStatus:@"按加号发了疯哈佛" duration:3];
     }
-    else if (btn.tag==4){
+    else if (indexPath.row==4){
         [TFY_ProgressHUD showErrorWithStatus:@"尽快发货伐啦回复啦回复了"];
     }
-    else if (btn.tag==5){
+    else if (indexPath.row==5){
         [TFY_ProgressHUD showErrorWithStatus:@"lxiuasnla" duration:4];
         
     }
-    else if (btn.tag==6){
+    else if (indexPath.row==6){
         [TFY_ProgressHUD showPromptWithStatus:@"发举案说法开发"];
     }
-    else if (btn.tag==7){
+    else if (indexPath.row==7){
         [TFY_ProgressHUD showPromptWithStatus:@"就会发回复拉回来发了疯" duration:1];
     }
-    else if (btn.tag==8){
+    else if (indexPath.row==8){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_FadeIn dismissType:TFY_PopupDismissType_FadeOut maskType:TFY_PopupMaskType_Clear];
         [popView show];
         
     }
-    else if (btn.tag==9){
+    else if (indexPath.row==9){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_ShrinkIn dismissType:TFY_PopupDismissType_ShrinkOut maskType:TFY_PopupMaskType_Clear];
         [popView showWithDuration:2];
     }
-    else if (btn.tag==10){
+    else if (indexPath.row==10){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_SlideInFromBottom dismissType:TFY_PopupDismissType_SlideOutToBottom maskType:TFY_PopupMaskType_Dimmed];
         [popView showWithDuration:2];
     }
-    else if (btn.tag==11){
+    else if (indexPath.row==11){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_SlideInFromTop dismissType:TFY_PopupDismissType_SlideOutToTop maskType:TFY_PopupMaskType_None];
         [popView showWithDuration:2];
     }
-    else if (btn.tag==12){
+    else if (indexPath.row==12){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_BounceIn dismissType:TFY_PopupDismissType_BounceOut maskType:TFY_PopupMaskType_None];
         [popView showWithDuration:2];
     }
-    else if (btn.tag==13){
+    else if (indexPath.row==13){
         TFY_ProgressHUD *popview = [[TFY_ProgressHUD alloc]initWithFrame:UIScreen.mainScreen.bounds];
         popview.contentView = self.contentView;
         popview.showType = TFY_PopupShowType_GrowIn;
@@ -111,5 +130,16 @@
 
 -(void)dismissClick{
     [TFY_ProgressHUD dismissSuperPopupIn:self.contentView animated:YES];
+}
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
+    }
+    return _tableView;
 }
 @end

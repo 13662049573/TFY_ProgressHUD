@@ -237,12 +237,9 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
 }
 
 + (void)dismissAllPopups {
-    NSArray *windows = [[UIApplication sharedApplication] windows];
-    for (UIWindow *window in windows) {
-        [window containsPopupBlock:^(TFY_ProgressHUD * _Nonnull popup) {
-            [popup dismissAnimated:NO];
-        }];
-    }
+    [[[TFY_ProgressHUD sharedView] lastWindow] containsPopupBlock:^(TFY_ProgressHUD *popup) {
+        [popup dismissAnimated:NO];
+    }];
 }
 
 + (void)dismissStatus:(NSString *)string{
@@ -494,7 +491,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
             if (centerValue) {
                 CGPoint centerInView = centerValue.CGPointValue;
                 CGPoint centerInSelf;
-                /// 将坐标从提供的视图转换为self。
+                // 将坐标从提供的视图转换为self。
                 UIView *fromView = parameters[kParametersViewName];
                 centerInSelf = fromView != nil ? [self convertPoint:centerInView toView:fromView] : centerInView;
                 finalContainerFrame.origin.x = centerInSelf.x - CGRectGetWidth(finalContainerFrame)*0.5;
@@ -965,6 +962,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
 @end
 
 @implementation NSValue (TFY_PopupLayout)
+
 + (NSValue *)valueWithTFY_PopupLayout:(TFY_PopupLayout)layout {
     return [NSValue valueWithBytes:&layout objCType:@encode(TFY_PopupLayout)];
 }

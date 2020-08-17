@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark ----------###############----------以下只使用于自定义View动画----------###############----------
+
 typedef NS_ENUM(NSUInteger, TFY_PopupShowType) {
     TFY_PopupShowType_None,              //没有
     TFY_PopupShowType_FadeIn,            //淡入
@@ -60,6 +62,8 @@ typedef NS_ENUM(NSUInteger, TFY_PopupVerticalLayout) {
     TFY_PopupVerticalLayout_BelowCenter,
     TFY_PopupVerticalLayout_Bottom
 };
+
+#pragma mark ----------###############----------以下只使用于弹出框交互----------###############----------
 
 typedef NS_ENUM(NSUInteger, TFY_PopupMaskType) {
     //允许与底层视图交互
