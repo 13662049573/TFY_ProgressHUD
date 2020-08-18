@@ -401,8 +401,8 @@
 #pragma mark - privates
 - (void)show
 {
-    [MainWindow addSubview:_menuBackView];
-    [MainWindow addSubview:self];
+    [[self lastWindow] addSubview:_menuBackView];
+    [[self lastWindow] addSubview:self];
     if ([[self getLastVisibleCell] isKindOfClass:[PopupMenuCell class]]) {
         PopupMenuCell *cell = [self getLastVisibleCell];
         cell.isShowSeparator = NO;
@@ -421,6 +421,25 @@
         }
     }];
 }
+
+- (UIWindow*)lastWindow {
+    NSEnumerator  *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];
+    for (UIWindow *window in frontToBackWindows) {
+        BOOL windowOnMainScreen = window.screen == UIScreen.mainScreen;
+
+        BOOL windowIsVisible = !window.hidden&& window.alpha>0;
+
+        BOOL windowLevelSupported = (window.windowLevel >= UIWindowLevelNormal && window.windowLevel <= UIWindowLevelNormal);
+
+        BOOL windowKeyWindow = window.isKeyWindow;
+        
+        if (windowOnMainScreen && windowIsVisible && windowLevelSupported && windowKeyWindow) {
+            return window;
+        }
+    }
+    return [UIApplication sharedApplication].keyWindow;
+}
+
 
 - (void)setDefaultSettings
 {

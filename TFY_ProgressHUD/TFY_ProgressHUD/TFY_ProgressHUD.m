@@ -15,17 +15,15 @@
 #define   TFY_HUD_Height [UIScreen mainScreen].bounds.size.height
 //屏幕宽
 #define   TFY_HUD_Width  [UIScreen mainScreen].bounds.size.width
-
-#define Ipad ((double)TFY_HUD_Height/(double)TFY_HUD_Width) < 1.6 ? YES : NO
 /**
  * 是否是竖屏
  */
-#define isPortrait      ( [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait ||  [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown ) ?YES:NO
+#define TFY_HUD_isPortrait      ( [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait ||  [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown ) ?YES:NO
 
 //对应屏幕比例宽
-#define TFY_HUD_DEBI_width(width)    width *(isPortrait ?(375/TFY_HUD_Width):(TFY_HUD_Height/375))
+#define TFY_HUD_DEBI_width(width)    width *(TFY_HUD_isPortrait ?(375/TFY_HUD_Width):(TFY_HUD_Height/375))
 
-#define TFY_HUD_DEBI_height(height)  height *(isPortrait ?(667/TFY_HUD_Height):(TFY_HUD_Width/667))
+#define TFY_HUD_DEBI_height(height)  height *(TFY_HUD_isPortrait ?(667/TFY_HUD_Height):(TFY_HUD_Width/667))
 
 typedef NS_ENUM(NSUInteger, ProgressHUDType){
     ProgressHUD_ERROR = 0,  // 错误信息
@@ -891,7 +889,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
 }
 
 - (void)updateInterfaceOrientation {
-    self.frame = self.window.bounds;
+    self.frame = [[TFY_ProgressHUD sharedView] lastWindow].bounds;
 }
 
 - (void)dismiss {

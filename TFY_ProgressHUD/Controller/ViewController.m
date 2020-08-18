@@ -13,7 +13,7 @@
 
 #define LM_queueEnd  });
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,PopupMenuDelegate>
 @property (nonatomic , strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, copy)NSArray *array;
@@ -24,20 +24,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"左边显示" style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemClick:)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"右边显示" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
+    
     self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 500)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     btn.frame = CGRectMake(0, 200, 300, 40);
-    [btn setTitle:@"关闭" forState:UIControlStateNormal];
+    [btn setTitle:@"展开" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setBackgroundColor:[UIColor blueColor]];
-    [btn addTarget:self action:@selector(dismissClick) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(dismissClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:btn];
     self.contentView.backgroundColor = [UIColor cyanColor];
     
     self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变"];
     
     [self.view addSubview:self.tableView];
-    
+
+}
+
+- (void)leftBarButtonItemClick:(UIBarButtonItem *)item {
+   [TFY_PopupMenu showAtPoint:CGPointMake(44, 88) titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 delegate:self];
+
+}
+
+- (void)rightBarButtonItemClick:(UIBarButtonItem *)item {
+    [TFY_PopupMenu showAtPoint:CGPointMake([UIScreen mainScreen].bounds.size.width-44, 88) titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 otherSettings:^(TFY_PopupMenu * _Nonnull popupMenu) {
+        popupMenu.type =  PopupMenuTypeDark;
+        popupMenu.delegate = self;
+    }];
+}
+
+- (void)tfy_PopupMenu:(TFY_PopupMenu *)PopupMenu didSelectedAtIndex:(NSInteger)index {
+    [TFY_ProgressHUD dismissSuperPopupIn:self.contentView animated:YES];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -128,8 +148,11 @@
     
 }
 
--(void)dismissClick{
-    [TFY_ProgressHUD dismissSuperPopupIn:self.contentView animated:YES];
+-(void)dismissClick:(UIButton *)btn{
+    [TFY_PopupMenu showRelyOnView:btn titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 otherSettings:^(TFY_PopupMenu * _Nonnull popupMenu) {
+        popupMenu.delegate = self;
+    }];
+    
 }
 
 - (UITableView *)tableView {
