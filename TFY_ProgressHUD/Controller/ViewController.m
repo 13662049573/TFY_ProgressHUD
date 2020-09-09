@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "TFY_ProgressHMB.h"
+#import "RootController.h"
 
 #define LM_QueueStartAfterTime(time) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 
@@ -26,7 +27,11 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"左边显示" style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemClick:)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"右边显示" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"进入界面" style:UIBarButtonItemStyleDone target:self action:@selector(rootViewClick)];
+    
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"右边显示" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
+    
+    self.navigationItem.rightBarButtonItems = @[item2,item1];
     
     self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 500)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -42,6 +47,10 @@
     
     [self.view addSubview:self.tableView];
 
+}
+
+- (void)rootViewClick {
+    [self.navigationController pushViewController:[RootController new] animated:YES];
 }
 
 - (void)leftBarButtonItemClick:(UIBarButtonItem *)item {
