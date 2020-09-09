@@ -3,7 +3,7 @@
 Pod::Spec.new do |spec|
   spec.name         = "TFY_ProgressHUD"
 
-  spec.version      = "2.4.0"
+  spec.version      = "2.4.2"
 
   spec.summary      = "完美提示框，使用各种场合"
 
@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
 
   spec.source_files  = "TFY_ProgressHUD/TFY_ProgressHUD/*.{h,m}"
   
-  spec.resources     = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle","TFY_ProgressHUD/TFY_ProgressHUD/TFY_PromptpopupHeader.h"
+  spec.resources     = "TFY_ProgressHUD/TFY_ProgressHUD/TFY_ProgressHUD.bundle"
 
   spec.frameworks    = "Foundation","UIKit"
 
