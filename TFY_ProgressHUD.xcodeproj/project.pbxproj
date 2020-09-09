@@ -44,6 +44,7 @@
 		36241FDA229628E100AFE2B2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		36241FDC2296293700AFE2B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		36241FDE229629D000AFE2B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3638B05E2508A06F00F71DC7 /* TFY_ProgressHMB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_ProgressHMB.h; sourceTree = "<group>"; };
 		3655DABF22953B2E001CAE7B /* TFY_ProgressHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TFY_ProgressHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3655DAC922953B2E001CAE7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3655DACB22953B2F001CAE7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TFY_ProgressHUD.bundle; sourceTree = "<group>"; };
 		36581B86236E461E001E8B17 /* TFY_PopupMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_PopupMenu.h; sourceTree = "<group>"; };
 		36581B87236E461E001E8B17 /* TFY_PopupMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFY_PopupMenu.m; sourceTree = "<group>"; };
-		36581B8C236E514D001E8B17 /* TFY_PromptpopupHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_PromptpopupHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,12 +181,12 @@
 		3655DB0822954503001CAE7B /* TFY_ProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
+				3638B05E2508A06F00F71DC7 /* TFY_ProgressHMB.h */,
 				3655DB0922954503001CAE7B /* TFY_ProgressHUD.h */,
 				3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */,
 				3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */,
 				36581B86236E461E001E8B17 /* TFY_PopupMenu.h */,
 				36581B87236E461E001E8B17 /* TFY_PopupMenu.m */,
-				36581B8C236E514D001E8B17 /* TFY_PromptpopupHeader.h */,
 			);
 			path = TFY_ProgressHUD;
 			sourceTree = "<group>";
