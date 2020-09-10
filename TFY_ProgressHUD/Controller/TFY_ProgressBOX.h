@@ -50,12 +50,46 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGSize)tfy_textSizeWithFont:(UIFont *)font numberOfLines:(NSInteger)numberOfLines lineSpacing:(CGFloat)lineSpacing constrainedWidth:(CGFloat)constrainedWidth;
 @end
 
+typedef NS_ENUM(NSUInteger, TFY_BOXMaskType) {
+    //允许与底层视图交互
+    TFY_BOXMaskType_None,
+    //不允许与底层视图交互。
+    TFY_BOXMaskType_Clear,
+    //不允许与底层视图、背景进行交互。
+    TFY_BOXMaskType_Dimmed
+};
 
 @interface TFY_ProgressBOX : UIView
+
+//交互类型
+@property (nonatomic, assign) TFY_BOXMaskType maskType;
+
 /**
  * 展示有加载圈的文字提示
  */
 + (void)showWithStatus:(NSString*)content;
++ (void)showWithStatus:(NSString*)content duration:(NSTimeInterval)duration;
++ (void)showWithAttributedContent:(NSAttributedString *)attributedString;
+/**
+ *  展示成功的状态  string 传字符串
+ */
++ (void)showSuccessWithStatus:(NSString*)string;
++ (void)showSuccessWithStatus:(NSString *)string duration:(NSTimeInterval)duration;
+/**
+ *  展示失败的状态 string 字符串
+ */
++ (void)showErrorWithStatus:(NSString *)string;
++ (void)showErrorWithStatus:(NSString *)string duration:(NSTimeInterval)duration;
+/**
+ *  展示提示信息  string 字符串
+ */
++ (void)showPromptWithStatus:(NSString *)string;
++ (void)showPromptWithStatus:(NSString *)string duration:(NSTimeInterval)duration;
+/**
+ *  只显示文本，没有任何多余的显示
+ */
++ (void)showTextWithStatus:(NSString *)string;
++ (void)showTextWithStatus:(NSString *)string duration:(NSTimeInterval)duration;
 /**
  * 关闭提示框 
  */

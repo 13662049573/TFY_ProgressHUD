@@ -124,12 +124,26 @@ dispatch_semaphore_t sem;
 
 @end
 
+typedef NS_ENUM(NSUInteger, ProgressBOXType){
+    ProgressBOX_ERROR = 0,  // 错误信息
+    ProgressBOX_SUCCESS,    // 成功信息
+    ProgressBOX_PROMPT,     // 提示信息
+    ProgressBOX_LOADING,     //加载圈
+    ProgressBOX_DISMISS,    //关闭
+    ProgressBOX_TEXT,        //只有文本显示
+};
+
 
 @interface TFY_ProgressBOX ()
 @property (nonatomic,  strong) UIView *containerView;
 @property (nonatomic,  strong) UIActivityIndicatorView *spinnerView;
 @property (nonatomic,  strong) UIImageView *imageView;
 @property (nonatomic,  strong) UILabel *stringLabel;
+@property (nonatomic,  copy) NSString *timeID;
+//当背景被触摸时，弹出窗口会消失。
+@property (nonatomic, assign) BOOL shouldDismissOnBackgroundTouch;
+//当内容视图被触摸时，弹出窗口会消失默认no
+@property (nonatomic, assign) BOOL shouldDismissOnContentTouch;
 @end
 
 
@@ -173,9 +187,12 @@ static TFY_ProgressBOX *sharedInstance_;
     if (self) {
         self.userInteractionEnabled = YES;
         self.backgroundColor = UIColor.clearColor;
-//        self.alpha = 0.0;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.autoresizesSubviews = YES;
+        
+        self.shouldDismissOnBackgroundTouch = NO;
+        self.shouldDismissOnContentTouch = YES;
+        self.maskType = TFY_BOXMaskType_Dimmed;
         
         [NotificationCenter addObserver:self selector:@selector(didChangeStatusbarOrientation:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
         
@@ -193,6 +210,7 @@ static TFY_ProgressBOX *sharedInstance_;
 
 - (void)updateInterfaceOrientation {
     self.frame = [[TFY_ProgressBOX sharedInstance] lastWindow].bounds;
+    self.containerView.center = self.center;
 }
 
 - (UIWindow*)lastWindow {
@@ -218,42 +236,146 @@ static TFY_ProgressBOX *sharedInstance_;
  */
 + (void)showWithStatus:(NSString*)content {
     TFY_ProgressBOX *box = [TFY_ProgressBOX new];
-    [box StatusContentString:content];
-    [box show];
+    [box StatusContentString:content AttributedString:nil Status:ProgressBOX_LOADING];
+    [box show:LONG_MAX];
 }
 
-- (void)StatusContentString:(NSString *)content {
++ (void)showWithStatus:(NSString*)content duration:(NSTimeInterval)duration {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:content AttributedString:nil Status:ProgressBOX_LOADING];
+    [box show:duration];
+}
+/**
+ * 展示有加载圈的文字提示 attributedString
+ */
++ (void)showWithAttributedContent:(NSAttributedString *)attributedString{
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:nil AttributedString:attributedString Status:ProgressBOX_LOADING];
+    [box show:1.5];
+}
+
+/**
+ *  展示成功的状态  string 传字符串
+ */
++ (void)showSuccessWithStatus:(NSString*)string {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_SUCCESS];
+    [box show:1.5];
+}
+/**
+ *  展示成功的状态 string   传字符串  duration 设定显示时间
+ */
++ (void)showSuccessWithStatus:(NSString *)string duration:(NSTimeInterval)duration {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_SUCCESS];
+    [box show:duration];
+}
+/**
+ *  展示失败的状态 string 字符串
+ */
++ (void)showErrorWithStatus:(NSString *)string {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_ERROR];
+    [box show:1.5];
+}
+
++ (void)showErrorWithStatus:(NSString *)string duration:(NSTimeInterval)duration {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_ERROR];
+    [box show:duration];
+}
+/**
+ *  展示提示信息  string 字符串
+ */
++ (void)showPromptWithStatus:(NSString *)string {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_PROMPT];
+    [box show:1.5];
+}
+
++ (void)showPromptWithStatus:(NSString *)string duration:(NSTimeInterval)duration {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_PROMPT];
+    [box show:duration];
+}
+/**
+ *  只显示文本，没有任何多余的显示
+ */
++ (void)showTextWithStatus:(NSString *)string {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_TEXT];
+    [box show:1.5];
+}
+
++ (void)showTextWithStatus:(NSString *)string duration:(NSTimeInterval)duration {
+    TFY_ProgressBOX *box = [TFY_ProgressBOX new];
+    [box StatusContentString:string AttributedString:nil Status:ProgressBOX_TEXT];
+    [box show:duration];
+}
+
+- (void)StatusContentString:(NSString *)content AttributedString:(NSAttributedString *)attributedString Status:(ProgressBOXType)status{
     TFY_HUD_GET_MAIN_STARE
-    [self.spinnerView startAnimating];
-    
-    [self setStatusContentString:content AttributedString:nil];
+        UIImage *image;
+        if(status == ProgressBOX_ERROR){
+            image = [self tfy_fileImage:@"my_error" fileName:nil];
+        }
+        if(status == ProgressBOX_SUCCESS) {
+            image = [self tfy_fileImage:@"my_success" fileName:nil];
+        }
+        if(status == ProgressBOX_PROMPT) {
+            image = [self tfy_fileImage:@"my_prompt" fileName:nil];
+        }
+        if (status == ProgressBOX_LOADING){
+            self.imageView.hidden = YES;
+            [self.spinnerView startAnimating];
+        }
+        if (status == ProgressBOX_TEXT) {
+            self.imageView.hidden = YES;
+            [self.spinnerView stopAnimating];
+        }
+        if (status!=ProgressBOX_LOADING && status!=ProgressBOX_TEXT) {
+            self.imageView.hidden = NO;
+            [self.spinnerView stopAnimating];
+            if ([image isKindOfClass:[UIImage class]]) {
+                self.imageView.image = image;
+            } else {
+                self.imageView.hidden = YES;
+                [self.spinnerView startAnimating];
+            }
+        }
+       [self setStatusContentString:content AttributedString:attributedString Status:status];
     TFY_HUD_GET_MAIN_END
 }
 
-- (void)setStatusContentString:(NSString *)content AttributedString:(NSAttributedString *)attributedString{
+- (void)setStatusContentString:(NSString *)content AttributedString:(NSAttributedString *)attributedString Status:(ProgressBOXType)status{
     CGFloat hudWidth = TFY_HUD_DEBI_width(100);
     CGFloat hudHeight = TFY_HUD_DEBI_width(100);
+    CGFloat labelH = TFY_HUD_DEBI_width(66);
     CGFloat stringWidth = 0;
     CGFloat stringHeight = 0;
     CGRect labelRect = CGRectZero;
     
     if(content!=nil || ![content isEqualToString:@""]) {
         
-        CGSize stringSize = [content tfy_textSizeWithFont:self.stringLabel.font numberOfLines:0 lineSpacing:5 constrainedWidth:TFY_HUD_DEBI_width(200)];
+        CGSize stringSize = [self sizeWithText:content maxSize:CGSizeMake(TFY_HUD_Width-hudWidth, TFY_HUD_DEBI_width(150)) fontSize:self.stringLabel.font];
         
         stringWidth = stringSize.width;
         stringHeight = stringSize.height;
         hudHeight = TFY_HUD_DEBI_width(80) + stringHeight;
-        
+        if (status == ProgressBOX_TEXT) {
+            labelH = 24;
+            hudHeight = stringHeight+48;
+        }
+    
         if (stringWidth > hudWidth)
             hudWidth = ceil(stringWidth / 2) * 2;
         
         if (hudHeight > TFY_HUD_DEBI_width(100)) {
-            labelRect = CGRectMake(12, TFY_HUD_DEBI_width(66), hudWidth, stringHeight);
+            labelRect = CGRectMake(12, labelH, hudWidth, stringHeight);
             hudWidth += 24;
         } else {
             hudWidth += 24;
-            labelRect = CGRectMake(0, TFY_HUD_DEBI_width(66), hudWidth, stringHeight);
+            labelRect = CGRectMake(0, labelH, hudWidth, stringHeight);
         }
     }
     
@@ -269,8 +391,7 @@ static TFY_ProgressBOX *sharedInstance_;
     
     if (content.length>0) {
         self.stringLabel.text = content;
-    }
-    else{
+    } else {
         self.stringLabel.attributedText = attributedString;
     }
     
@@ -294,40 +415,30 @@ static TFY_ProgressBOX *sharedInstance_;
     return nameSize;
 }
 
-- (void)show {
+- (void)show:(NSTimeInterval)time{
     [[self lastWindow] addSubview:self];
     __weak typeof(self) weakSelf = self;
     TFY_HUD_GET_MAIN_STARE
     __strong typeof(weakSelf) strongSelf = weakSelf;
     strongSelf.containerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
     strongSelf.containerView.alpha = 0;
-
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         strongSelf.containerView.transform = CGAffineTransformMakeScale(1.1, 1.1);
         strongSelf.containerView.alpha =1;
     } completion:^(BOOL finished) {
-        [TFY_Timer timerWithTarget:self selector:@selector(dismis) StartTime:2 interval:1 repeats:NO mainQueue:YES];
+        self.timeID = [TFY_Timer timerWithTarget:self selector:@selector(dismis) StartTime:time interval:1 repeats:NO mainQueue:YES];
     }];
-    
-    
-//    [UIView animateWithDuration:1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//            strongSelf.containerView.alpha = 0.0;
-//            strongSelf.containerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
-//        } completion:^(BOOL finished) {
-//            [strongSelf removeFromSuperview];
-//        }];
-//    }];
     TFY_HUD_GET_MAIN_END
 }
 
 + (void)dismiss {
+    NSString *time = [TFY_ProgressBOX sharedInstance].timeID;
+    [TFY_Timer cancel:time];
     [[TFY_ProgressBOX sharedInstance] dismis];
 }
 
 - (void)dismis {
+    [self.containerView removeFromSuperview];
     [self removeFromSuperview];
 }
 
@@ -374,4 +485,23 @@ static TFY_ProgressBOX *sharedInstance_;
     }
     return _stringLabel;
 }
+
+#pragma mark ------------- ------------- -------------  触摸屏事件处理 ------------------ ------------- -------------
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *hitView = [super hitTest:point withEvent:event];
+    if (hitView == self) {
+        if (self.shouldDismissOnBackgroundTouch) {
+            [[TFY_ProgressBOX sharedInstance] dismis];
+        }
+        return self.maskType == TFY_BOXMaskType_None ? nil : hitView;
+    } else {
+        if ([hitView isDescendantOfView:self.containerView] && self.shouldDismissOnContentTouch) {//subview是否是superView的子视图
+            [[TFY_ProgressBOX sharedInstance] dismis];
+        }
+        return hitView;
+    }
+}
+
+
 @end

@@ -43,7 +43,7 @@
     [self.contentView addSubview:btn];
     self.contentView.backgroundColor = [UIColor cyanColor];
     
-    self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变"];
+    self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"纯文本显示",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变",@"自定义视图"];
     
     [self.view addSubview:self.tableView];
 
@@ -126,33 +126,43 @@
         [TFY_ProgressHUD showPromptWithStatus:@"就会发回复拉回来发了疯" duration:1];
     }
     else if (indexPath.row==8){
+        [TFY_ProgressHUD showTextWithStatus:@"按时缴费卡就恢复开机按喝咖啡就爱看昂首阔步饭卡比方说八分部包括和不堪罚款把空间分布卡部分看卡包饭卡吧卡级别发空间吧科技部发空间不付款吧饭卡吧饭卡吧饭卡"];
+    }
+    else if (indexPath.row==9){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_FadeIn dismissType:TFY_PopupDismissType_FadeOut maskType:TFY_PopupMaskType_Clear];
         [popView show];
         
     }
-    else if (indexPath.row==9){
+    else if (indexPath.row==10){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_ShrinkIn dismissType:TFY_PopupDismissType_ShrinkOut maskType:TFY_PopupMaskType_Clear];
         [popView showWithDuration:2];
     }
-    else if (indexPath.row==10){
+    else if (indexPath.row==11){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_SlideInFromBottom dismissType:TFY_PopupDismissType_SlideOutToBottom maskType:TFY_PopupMaskType_Dimmed];
         [popView showWithDuration:2];
     }
-    else if (indexPath.row==11){
+    else if (indexPath.row==12){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_SlideInFromTop dismissType:TFY_PopupDismissType_SlideOutToTop maskType:TFY_PopupMaskType_None];
         [popView showWithDuration:2];
     }
-    else if (indexPath.row==12){
+    else if (indexPath.row==13){
         TFY_ProgressHUD *popView = [TFY_ProgressHUD popupWithContentView:self.contentView showType:TFY_PopupShowType_BounceIn dismissType:TFY_PopupDismissType_BounceOut maskType:TFY_PopupMaskType_None];
         [popView showWithDuration:2];
     }
-    else if (indexPath.row==13){
+    else if (indexPath.row==14){
         TFY_ProgressHUD *popview = [[TFY_ProgressHUD alloc]initWithFrame:UIScreen.mainScreen.bounds];
         popview.contentView = self.contentView;
         popview.showType = TFY_PopupShowType_GrowIn;
         popview.dismissType = TFY_PopupDismissType_GrowOut;
         popview.showInDuration = 2;
         [popview show];
+    } else if(indexPath.row==15) {
+        UIView *bbbb = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+        bbbb.backgroundColor = UIColor.redColor;
+        TFY_ProgressHUD *popview = [TFY_ProgressHUD popupWithContentView:bbbb];
+        popview.showType = TFY_PopupShowType_GrowIn;
+        popview.dismissType = TFY_PopupDismissType_GrowOut;
+        [popview showWithDuration:2];
     }
     
 }

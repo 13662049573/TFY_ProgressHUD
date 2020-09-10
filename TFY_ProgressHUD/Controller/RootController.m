@@ -32,7 +32,7 @@
     
     self.view.backgroundColor = UIColor.blueColor;
     
-    self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"淡入淡出",@"收缩",@"底部弹出",@"顶部弹出",@"中心弹出",@"背景渐变"];
+    self.array = @[@"加载中...",@"加载成功",@"加载失败",@"提示",@"成功时间自定义",@"失败时间自定义",@"提示自定义",@"加载中自定义时间",@"显示文本多",@"纯文不显示"];
    
    [self.view addSubview:self.tableView];
 }
@@ -63,8 +63,32 @@
 }
 
 -(void)btnClick:(NSIndexPath *)indexPath{
+    NSString *string = self.array[indexPath.row];
     if (indexPath.row == 0) {
-        [TFY_ProgressBOX showWithStatus:@"这是一次测试数提示框！这是一次测试数提示框！"];
+        [TFY_ProgressBOX showWithStatus:string];
+        TFY_QueueStartAfterTime(4)
+        [TFY_ProgressBOX dismiss];
+        TFY_queueEnd
+    } else if (indexPath.row == 1) {
+        [TFY_ProgressBOX showSuccessWithStatus:string];
+    } else if (indexPath.row == 2) {
+        [TFY_ProgressBOX showErrorWithStatus:string];
+    } else if (indexPath.row == 3) {
+        [TFY_ProgressBOX showPromptWithStatus:string];
+    } else if (indexPath.row == 4) {
+        [TFY_ProgressBOX showSuccessWithStatus:string duration:5];
+    } else if (indexPath.row == 5) {
+        [TFY_ProgressBOX showErrorWithStatus:string duration:4];
+    } else if (indexPath.row == 6) {
+        [TFY_ProgressBOX showPromptWithStatus:string duration:6];
+    } else if (indexPath.row == 7) {
+        [TFY_ProgressBOX showWithStatus:string duration:1];
+    } else if (indexPath.row == 8) {
+        [TFY_ProgressBOX showWithStatus:@"按时发哪里芬兰芬兰芬兰拉发哪里是你法拉盛纽芬兰范聪聪我饿哦发哪里能否IE李女士你疯了你疯了你放哪发哪里发哪款窝囊废蓝风铃爱上你的来看德里克哪款辽宁大连" duration:1];
+    } else if (indexPath.row == 9) {
+        [TFY_ProgressBOX showTextWithStatus:@"爱上克利夫兰法拉利发那份饭卡不开放把控部分卡布卡杯咖啡吧"];
+    } else if (indexPath.row == 10) {
+        
     }
 }
 
