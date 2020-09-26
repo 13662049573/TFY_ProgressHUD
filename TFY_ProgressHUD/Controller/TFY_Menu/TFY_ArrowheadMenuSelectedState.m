@@ -1,14 +1,14 @@
 //
-//  TFY_ArrowheadMenu.m
+//  TFY_ArrowheadMenuSelectedState.m
 //  TFY_ProgressHUD
 //
 //  Created by 田风有 on 2020/9/22.
 //  Copyright © 2020 恋机科技. All rights reserved.
 //
 
-#import "TFY_ArrowheadMenu.h"
+#import "TFY_ArrowheadMenuSelectedState.h"
 
-@interface TFY_ArrowheadMenu ()<UITableViewDelegate, UITableViewDataSource>
+@interface TFY_ArrowheadMenuSelectedState ()<UITableViewDelegate, UITableViewDataSource>
 /**
  菜单背景图
  */
@@ -20,14 +20,24 @@
 @property (nonatomic, strong) UITableView *menuTableView;
 
 /**
- 标题数组
+ 常态下标题数组
  */
-@property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) NSArray *normalTitleArray;
 
 /**
- 图表数组
+ 选中状态下标题数组
  */
-@property (nonatomic, strong) NSArray *iconArray;
+@property (nonatomic, strong) NSArray *selectedTitleArray;
+
+/**
+ 常态下图标数组
+ */
+@property (nonatomic, strong) NSArray *normalIconArray;
+
+/**
+ 选中状态下图标数组
+ */
+@property (nonatomic, strong) NSArray *selectedIconArray;
 
 /**
  开始位置
@@ -55,9 +65,14 @@
 @property (nonatomic, strong) UIFont *font;
 
 /**
- 菜单字体颜色
+ 常态下菜单字体颜色
  */
-@property (nonatomic, strong) UIColor *fontColor;
+@property (nonatomic, strong) NSArray *normalTitleColor;
+
+/**
+ 选中状态下菜单字体颜色
+ */
+@property (nonatomic, strong) NSArray *selectedTitleColor;
 
 /**
  菜单背景颜色
@@ -119,44 +134,60 @@
  */
 @property (nonatomic, assign) CGPoint anchorPoint;
 
+/**
+ 单选记录cell
+ */
+@property (nonatomic, strong) UITableViewCell *singleRecordCell;
 @end
 
-@implementation TFY_ArrowheadMenu
+@implementation TFY_ArrowheadMenuSelectedState
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-#pragma mark- 默认风格创建菜单
-- (instancetype)initDefaultArrowheadMenuWithTitle:(NSArray<NSString *> *)titleArray icon:(NSArray<NSString *> *)iconArray menuPlacements:(MenuPlacements)placements {
-
-    return [self initCustomArrowheadMenuWithTitle:titleArray icon:iconArray menuUnitSize:CGSizeMake([UIScreen mainScreen].bounds.size.width/3, 38) menuFont:[UIFont fontWithName:@"Helvetica" size:15.f] menuFontColor:[UIColor whiteColor] menuBackColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8] menuSegmentingLineColor:[UIColor colorWithRed:192/255.f green:196/255.f blue:201/255.f alpha:1] distanceFromTriggerSwitch:0 menuArrowStyle:MenuArrowStyleTriangle menuPlacements:placements showAnimationEffects:ShowAnimationZoom];
+- (instancetype)initDefaultArrowheadStatusMenuWithNormalTitle:(NSArray<NSString *> *)normalTitleArray selectedTitle:(NSArray<NSString *> *)selectedTitleArray normalIcon:(NSArray<NSString *> *)normalIconArray selectedIcon:(NSArray<NSString *> *)selectedIconArray menuNormalTitleColor:(UIColor *)normalTitleColor menuSelectedTitleColor:(UIColor *)selectedTitleColor menuPlacements:(MenuPlacements)placements {
+    
+    return [self initCustomArrowheadStatusMenuWithNormalTitle:normalTitleArray selectedTitle:selectedTitleArray normalIcon:normalIconArray selectedIcon:selectedIconArray menuNormalTitleColor:normalTitleColor menuSelectedTitleColor:selectedTitleColor menuUnitSize:CGSizeMake([UIScreen mainScreen].bounds.size.width/3, 38) menuFont:[UIFont fontWithName:@"Helvetica" size:15.f] menuBackColor:[UIColor whiteColor] menuSegmentingLineColor:[UIColor colorWithRed:192/255.f green:196/255.f blue:201/255.f alpha:1] distanceFromTriggerSwitch:0 menuArrowStyle:MenuArrowStyleTriangle menuPlacements:placements showAnimationEffects:ShowAnimationZoom];
 }
 
-#pragma mark- 自定义风格创建菜单
-- (instancetype)initCustomArrowheadMenuWithTitle:(NSArray<NSString *> *)titleArray icon:(NSArray<NSString *> *)iconArray menuUnitSize:(CGSize)size menuFont:(UIFont *)font menuFontColor:(UIColor *)fontColor menuBackColor:(UIColor *)menuBackColor menuSegmentingLineColor:(UIColor *)separatorColor distanceFromTriggerSwitch:(CGFloat)interval menuArrowStyle:(MenuArrowStyle)arrowStyle menuPlacements:(MenuPlacements)placements showAnimationEffects:(MenuShowAnimationStyle)animation {
+- (instancetype)initCustomArrowheadStatusMenuWithNormalTitle:(NSArray<NSString *> *)normalTitleArray selectedTitle:(NSArray<NSString *> *)selectedTitleArray normalIcon:(NSArray<NSString *> *)normalIconArray selectedIcon:(NSArray<NSString *> *)selectedIconArray menuNormalTitleColor:(UIColor *)normalTitleColor menuSelectedTitleColor:(UIColor *)selectedTitleColor menuUnitSize:(CGSize)size menuFont:(UIFont *)font menuBackColor:(UIColor *)menuBackColor menuSegmentingLineColor:(UIColor *)separatorColor distanceFromTriggerSwitch:(CGFloat)interval menuArrowStyle:(MenuArrowStyle)arrowStyle menuPlacements:(MenuPlacements)placements showAnimationEffects:(MenuShowAnimationStyle)animation {
+    
+    NSMutableArray *nTitleColorArray = [NSMutableArray array];
+    NSMutableArray *sTitleColorArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < normalTitleArray.count; i ++) {
+        [nTitleColorArray addObject:normalTitleColor];
+        [sTitleColorArray addObject:selectedTitleColor];
+    }
+    
+    return [self initCustomArrowheadStatusMenuWithNormalTitle:normalTitleArray selectedTitle:selectedTitleArray normalIcon:normalIconArray selectedIcon:selectedIconArray menuNormalTitleColorArray:nTitleColorArray menuSelectedTitleColorArray:sTitleColorArray menuUnitSize:size menuFont:font menuBackColor:menuBackColor menuSegmentingLineColor:separatorColor distanceFromTriggerSwitch:interval menuArrowStyle:arrowStyle menuPlacements:placements showAnimationEffects:animation];
+}
+
+- (instancetype)initCustomArrowheadStatusMenuWithNormalTitle:(NSArray<NSString *> *)normalTitleArray selectedTitle:(NSArray<NSString *> *)selectedTitleArray normalIcon:(NSArray<NSString *> *)normalIconArray selectedIcon:(NSArray<NSString *> *)selectedIconArray menuNormalTitleColorArray:(NSArray<UIColor *> *)normalTitleColorArray menuSelectedTitleColorArray:(NSArray<UIColor *> *)selectedTitleColorArray menuUnitSize:(CGSize)size menuFont:(UIFont *)font menuBackColor:(UIColor *)menuBackColor menuSegmentingLineColor:(UIColor *)separatorColor distanceFromTriggerSwitch:(CGFloat)interval menuArrowStyle:(MenuArrowStyle)arrowStyle menuPlacements:(MenuPlacements)placements showAnimationEffects:(MenuShowAnimationStyle)animation {
     
     self = [super init];
     if (self) {
         
         self.font = font;// 菜单字体
-        self.separatorColor = separatorColor;// 分割线颜色
+        self.separatorColor = separatorColor;
         self.menuBackColor = menuBackColor;// 菜单背景颜色
-        self.fontColor = fontColor;// 字体颜色和背景颜色形成对比
+        self.normalTitleColor = normalTitleColorArray;// 常态下字体颜色
+        self.selectedTitleColor = selectedTitleColorArray;// 选中状态下
         self.cellHeight = size.height;// 菜单单元格高度
         self.menuItemWidth = size.width;// 菜单项目宽度
-        self.menuItemHeight = size.height*titleArray.count;// 菜单项目高度
+        self.menuItemHeight = size.height*normalTitleArray.count;// 菜单项目高度
         self.interval = interval;// 菜单和触发按钮的间隔
-        self.titleArray = titleArray;// 标题
-        self.iconArray = iconArray;// 图标
+        self.normalTitleArray = normalTitleArray;// 常态下标题
+        self.selectedTitleArray = selectedTitleArray;// 选中状态下标题
+        self.normalIconArray = normalIconArray;// 常态下图标
+        self.selectedIconArray = selectedIconArray;// 选中状态下图标
         self.arrowStyle = arrowStyle;// 箭头风格
         self.placements = placements;// 展示位置
         self.animationStyle = animation; // 展示动画
     }
     
     return self;
-    
 }
 
 #pragma mark- 菜单位置和大小计算，并跟新菜单frame
@@ -319,32 +350,6 @@
     [self presentMenuView];
 }
 
-#pragma mark- 移除菜单
-- (void)removeMenuView {
-    
-    // 根据动画风格移除菜单
-    switch (self.animationStyle) {
-        case 0:// 无动画效果
-        {
-            [self.menuBackView removeFromSuperview];
-            [self dismissViewControllerAnimated:NO completion:nil];
-        }
-            break;
-            
-        case 1:// 缩放效果
-        {
-            [UIView animateWithDuration:0.25f animations:^{
-                self.menuBackView.transform = CGAffineTransformMakeScale(0.6f, 0.6f);
-                [self dismissViewControllerAnimated:NO completion:nil];
-            } completion:^(BOOL finished) {
-                [self.menuBackView removeFromSuperview];
-                self.menuBackView.transform = CGAffineTransformIdentity;// 还原回来，否则会影响下次弹出
-            }];
-        }
-            break;
-    }
-}
-
 #pragma mark- 定制并展示菜单
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -355,11 +360,10 @@
     // 2、根据动画风格展示菜单
     switch (self.animationStyle) {
         case 0:// 无动画效果
-            {
-                [self.view addSubview:self.menuBackView];
-            }
+        {
+            [self.view addSubview:self.menuBackView];
+        }
             break;
-            
         case 1:// 缩放效果
         {
             self.menuBackView.layer.anchorPoint = self.anchorPoint;
@@ -375,47 +379,102 @@
     
 }
 
+#pragma mark- 移除菜单
+- (void)removeMenuView {
+    // 根据动画风格移除菜单
+    switch (self.animationStyle) {
+        case 0:// 无动画效果
+        {
+            [self.menuBackView removeFromSuperview];
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }
+            break;
+        case 1:// 缩放效果
+        {
+            [UIView animateWithDuration:0.25f animations:^{
+                self.menuBackView.transform = CGAffineTransformMakeScale(0.6f, 0.6f);
+                [self dismissViewControllerAnimated:NO completion:nil];
+            } completion:^(BOOL finished) {
+                [self.menuBackView removeFromSuperview];
+                self.menuBackView.transform = CGAffineTransformIdentity;// 还原回来，否则会影响下次弹出
+            }];
+        }
+            break;
+    }
+}
+
 #pragma mark- 菜单TableView代理方法
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"\n\n\n点击菜单后的状态:%d", cell.selected);
+    if (!self.allowsMultipleSelection && self.singleRecordCell == cell) {// 如果是单选菜单，且点击了处于选中状态下的单元，就把该单元的选中状态设置为NO
+        [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
+        self.singleRecordCell = nil;//置空
+        return;
+    } else if (!self.allowsMultipleSelection && self.singleRecordCell != cell) {// 记录cell
+        self.singleRecordCell = cell;
+    }
+
+    cell.textLabel.textColor = self.selectedTitleColor[indexPath.row];
+    if (self.selectedIconArray) {
+        cell.imageView.image = [UIImage imageNamed:self.selectedIconArray[indexPath.row]];
+    }
     
     // 1、通知代理处理点击事件
-    if ([self.delegate respondsToSelector:@selector(menu:didClickedItemUnitWithTag:andItemUnitTitle:)]) {
-        [self.delegate menu:self didClickedItemUnitWithTag:indexPath.row andItemUnitTitle:self.titleArray[indexPath.row]];
+    if ([self.delegate respondsToSelector:@selector(menu:didClickedMenuItemUnitWithTag:andItemUnitTitle:itemiUnitPostClickState:)]) {
+        [self.delegate menu:self didClickedMenuItemUnitWithTag:indexPath.row andItemUnitTitle:self.normalTitleArray[indexPath.row] itemiUnitPostClickState:YES];
+    }
+    // 2、移除菜单
+    [self removeMenuView];
+}
+
+// 当点击处于选中状态下的cell时，调用该方法
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    
+    NSLog(@"\n\n\n点击菜单后,cell变成非选中状态:%d", cell.selected);
+    
+    cell.textLabel.textColor = self.normalTitleColor[indexPath.row];
+    if (self.normalIconArray) {
+        cell.imageView.image = [UIImage imageNamed:self.normalIconArray[indexPath.row]];
+    }
+    // 1、通知代理处理点击事件
+    if ([self.delegate respondsToSelector:@selector(menu:didClickedMenuItemUnitWithTag:andItemUnitTitle:itemiUnitPostClickState:)]) {
+        [self.delegate menu:self didClickedMenuItemUnitWithTag:indexPath.row andItemUnitTitle:self.normalTitleColor[indexPath.row] itemiUnitPostClickState:NO];
     }
     // 2、移除菜单
     [self removeMenuView];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%lu-+%lu", indexPath.row, indexPath.section]];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%lu-+%lu", (long)indexPath.row, (long)indexPath.section]];
+    cell.textLabel.font = self.font;
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"%lu-+%lu", indexPath.row, indexPath.section]];
-        // 设置标题格式
-        cell.textLabel.textColor = self.fontColor;
-        cell.textLabel.font = self.font;
-        cell.backgroundColor = [UIColor clearColor];
-        // 设置菜单点击背景
-        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"%lu-+%lu", (long)indexPath.row, (long)indexPath.section]];
         // 移除最后一个cell的分割线
         if (indexPath.row == [tableView numberOfRowsInSection:indexPath.section]-1) {
             
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
         }
-        
-        // 设置菜单图标
-        if (self.iconArray) {
-            cell.imageView.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
+        cell.backgroundColor = [UIColor clearColor];
+        // 设置菜单点击背景
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // 设置标题格式（默认为未选状态）
+        cell.textLabel.textColor = self.normalTitleColor[indexPath.row];
+        // 设置菜单图标（默认为未选状态）
+        if (self.normalIconArray) {
+            cell.imageView.image = [UIImage imageNamed:self.normalIconArray[indexPath.row]];
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
         } else {
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
-        // 设置菜单标题
-        cell.textLabel.text = self.titleArray[indexPath.row];
+        // 设置菜单标题（默认为未选状态）
+        cell.textLabel.text = self.normalTitleArray[indexPath.row];
         
     }
-    
     
     return cell;
 }
@@ -425,11 +484,26 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.titleArray.count;
+    return self.normalTitleArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+//MARK: 点击后去除自己的选中状态
+- (void)whenClickedUncheckOwnStatus:(NSInteger)tag {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:tag inSection:0];
+    UITableViewCell *cell = [self.menuTableView cellForRowAtIndexPath:indexPath];
+    if (cell.selected) {
+        cell.selected = NO;
+        cell.textLabel.textColor = self.normalTitleColor[tag];
+        if (self.normalIconArray) {
+            cell.imageView.image = [UIImage imageNamed:self.normalIconArray[tag]];
+        }
+    }
+    
 }
 
 #pragma mark- 控件懒加载
@@ -454,17 +528,16 @@
         _menuTableView.showsVerticalScrollIndicator = NO;
         _menuTableView.tableFooterView = [[UIView alloc] init];
         _menuTableView.backgroundColor = [UIColor clearColor];
-        
         // 分割线颜色
         _menuTableView.separatorColor = self.separatorColor;
         // 调整cell的分割线的位置
         _menuTableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
         
         _menuTableView.layoutMargins = UIEdgeInsetsMake(0, 10, 0, 10);
+        
+        _menuTableView.allowsMultipleSelection = self.allowsMultipleSelection;
     }
-    
     return _menuTableView;
 }
-
 
 @end

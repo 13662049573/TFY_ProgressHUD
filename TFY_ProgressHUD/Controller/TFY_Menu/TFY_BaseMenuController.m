@@ -26,7 +26,6 @@
         // VC的默认modalPresentationStyle是UIModalPresentationFullScreen，必须重新设置modal样式，否则推出来的VC不会是透明的
         self.modalPresentationStyle = UIModalPresentationOverFullScreen;
     }
-    
     return self;
 }
 
@@ -43,9 +42,7 @@
 }
 //递归返回最上面的presentedViewController
 - (UIViewController *)getTheLatestViewController:(UIViewController *)vc {
-    if (vc.presentedViewController == nil) {
-        return vc;
-    }
+    if (vc.presentedViewController == nil) {return vc;}
     return [self getTheLatestViewController:vc.presentedViewController];
 }
 

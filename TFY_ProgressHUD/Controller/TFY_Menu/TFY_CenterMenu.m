@@ -104,10 +104,8 @@
 #pragma mark- 定制并展示菜单
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     // 1、设置菜单遮罩层颜色
     self.view.backgroundColor = self.menuMaskColor;
-    
     // 2、设置展示动态展示动画
     self.menuTableView.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
     [UIView animateWithDuration:0.2 animations:^{
@@ -138,9 +136,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%lu-+%lu", indexPath.row, indexPath.section]];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%ld-+%lu", (long)indexPath.row, (long)indexPath.section]];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"%lu-+%lu", indexPath.row, indexPath.section]];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"%lu-+%lu", (long)indexPath.row, (long)indexPath.section]];
         // 设置标题格式
         cell.textLabel.font = self.font;
         cell.textLabel.textColor = self.fontColor;
@@ -150,10 +148,8 @@
         cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
         // 移除最后一个cell的分割线
         if (indexPath.row == [tableView numberOfRowsInSection:indexPath.section]-1) {
-            
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
         }
-        
         // 设置菜单图标
         if (self.iconArray) {
             cell.imageView.image = [UIImage imageNamed:self.iconArray[indexPath.row]];
@@ -165,8 +161,6 @@
         cell.textLabel.text = self.titleArray[indexPath.row];
         
     }
-    
-    
     return cell;
 }
 
