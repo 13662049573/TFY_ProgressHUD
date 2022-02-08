@@ -3,7 +3,7 @@
 Pod::Spec.new do |spec|
   spec.name         = "TFY_ProgressHUD"
 
-  spec.version      = "2.4.6"
+  spec.version      = "2.4.8"
 
   spec.summary      = "完美提示框，使用各种场合"
 
@@ -17,7 +17,6 @@ Pod::Spec.new do |spec|
   
   spec.platform     = :ios, "12.0"
   
-
   spec.source       = { :git => "https://github.com/13662049573/TFY_ProgressHUD.git", :tag => spec.version }
 
   spec.source_files  = "TFY_ProgressHUD/TFY_ProgressHUD/*.{h,m}"
