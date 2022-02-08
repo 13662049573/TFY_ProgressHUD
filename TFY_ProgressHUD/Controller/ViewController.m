@@ -54,12 +54,12 @@
 }
 
 - (void)leftBarButtonItemClick:(UIBarButtonItem *)item {
-   [TFY_PopupMenu showAtPoint:CGPointMake(44, 88) titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 delegate:self];
+   [TFY_PopupMenu showAtPoint:CGPointMake(44, 64) titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 delegate:self];
 
 }
 
 - (void)rightBarButtonItemClick:(UIBarButtonItem *)item {
-    [TFY_PopupMenu showAtPoint:CGPointMake([UIScreen mainScreen].bounds.size.width-44, 88) titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 otherSettings:^(TFY_PopupMenu * _Nonnull popupMenu) {
+    [TFY_PopupMenu showAtPoint:CGPointMake([UIScreen mainScreen].bounds.size.width-44, 64) titles:@[@"测试1",@"测试2",@"测试3",@"测试4"] icons:@[@"sep_auther",@"liwu",@"myvotebiao",@"sep_beijing"] menuWidth:140 otherSettings:^(TFY_PopupMenu * _Nonnull popupMenu) {
         popupMenu.type =  PopupMenuTypeDark;
         popupMenu.delegate = self;
     }];
