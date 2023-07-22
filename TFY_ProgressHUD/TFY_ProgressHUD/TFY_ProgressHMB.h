@@ -18,10 +18,12 @@ FOUNDATION_EXPORT const unsigned char TFY_ProgressHMBVersionString[];
 
 #import <TFY_ProgressHUD/TFY_ProgressHUD.h>
 #import <TFY_ProgressHUD/TFY_PopupMenu.h>
+#import <TFY_ProgressHUD/TFY_AlertHUD.h>
 
 #else
 
 #import "TFY_ProgressHUD.h"
 #import "TFY_PopupMenu.h"
+#import "TFY_AlertHUD.h"
 
 #endif
