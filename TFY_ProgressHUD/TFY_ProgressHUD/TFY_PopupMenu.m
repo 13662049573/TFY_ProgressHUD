@@ -339,6 +339,7 @@
         cell.textLabel.attributedText = self.titles[indexPath.row];
     }else if ([self.titles[indexPath.row] isKindOfClass:[NSString class]]) {
         cell.textLabel.text = self.titles[indexPath.row];
+        cell.textLabel.textAlignment = self.textAlignment;
     }else {
         cell.textLabel.text = nil;
     }
@@ -600,6 +601,11 @@
 
 - (void)setMaxVisibleCount:(NSInteger)maxVisibleCount {
     _maxVisibleCount = maxVisibleCount;
+    [self updateUI];
+}
+
+- (void)setTextAlignment:(NSInteger)textAlignment {
+    _textAlignment = textAlignment;
     [self updateUI];
 }
 
