@@ -7,7 +7,6 @@
 //
 
 #import "TFY_AlertHUD.h"
-#import "TFY_ProgressHUD.h"
 #import <UIKit/UIKit.h>
 
 @interface TFY_AlertHUD ()
@@ -126,7 +125,7 @@
     [self showBarDeterminateWithProgress:progress status:@"上传中..."];
 }
 
-- (void)showBarDeterminateWithProgress:(CGFloat)progress status:(NSString *)status{
+- (void)showBarDeterminateWithProgress:(CGFloat)progress status:(NSString *)status {
     if (_hud && _hud.mode != ProgressHUDModeDeterminateHorizontalBar) {
         [self hide];
     }
@@ -143,25 +142,48 @@
     }
 }
 
+- (void)showRoundDeterminateWithProgress:(CGFloat)progress {
+    [self showRoundDeterminateWithProgress:progress status:@"上传中..."];
+}
+
+- (void)showRoundDeterminateWithProgress:(CGFloat)progress status:(nullable NSString *)status {
+    if (_hud && _hud.mode != ProgressHUDModeDeterminate) {
+        [self hide];
+    }
+    if (!_hud) {
+        _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+        _hud.detailsLabelText = status;
+        _hud.mode = ProgressHUDModeDeterminate;
+    }
+    _hud.progress = progress;
+    _hud.detailsLabelText = status;
+    if (progress >= 1) {
+        _hud.detailsLabelText = @"已完成";
+        [self hide];
+    }
+}
+
+- (void)showWithProgress:(CGFloat)progress Mode:(ProgressHUDMode)mode status:(nullable NSString *)status {
+    if (_hud && _hud.mode != mode) {
+        [self hide];
+    }
+    if (!_hud) {
+        _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+        _hud.detailsLabelText = status;
+        _hud.mode = mode;
+    }
+    _hud.progress = progress;
+    _hud.detailsLabelText = status;
+    if (progress >= 1) {
+        _hud.detailsLabelText = @"已完成";
+        [self hide];
+    }
+}
+
 - (void)hide{
     [_hud hide:YES];
     _hud = nil;
 }
-
-BOOL TFY_IsIpad(void){
-    NSString *deviceType = [UIDevice currentDevice].model;
-    if([deviceType isEqualToString:@"iPad"]) {
-        return YES;
-    }
-    return NO;
-}
-
-UIColor *TFY_Color(NSInteger hex){
-    return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16))/255.0
-                           green:((float)((hex & 0xFF00) >> 8))/255.0
-                            blue:((float)(hex & 0xFF))/255.0 alpha:1.0];
-}
-
 
 - (UIWindow*)lastWindow {
     NSEnumerator  *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];

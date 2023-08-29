@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "TFY_ProgressHMB.h"
+#import "TFY_AlertHUD.h"
 
 #define LM_QueueStartAfterTime(time) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 
@@ -40,7 +40,7 @@
     [self.contentView addSubview:btn];
     self.contentView.backgroundColor = [UIColor cyanColor];
     
-    self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"进度条"];
+    self.array = @[@"菊花提示",@"菊花提示交互",@"请求成功",@"成功时间自定义",@"失败",@"失败加时间",@"提示",@"提示加时间",@"进度条",@"进度条2"];
     
     [self.view addSubview:self.tableView];
 
@@ -128,7 +128,20 @@
             __block CGFloat progress = 0.1;
            [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
                 progress+=0.1;
-                [TFYAlert showBarDeterminateWithProgress:progress status:[NSString stringWithFormat:@"完成%.0f",progress*100]];
+                [TFYAlert showBarDeterminateWithProgress:progress status:[NSString stringWithFormat:@"完成%.0f%%",progress*100]];
+                if (progress >= 1) {
+                    [TFYAlert hide];
+                    [timer invalidate];
+                }
+            }];
+        }
+            break;
+        case 9:
+        {
+            __block CGFloat progress = 0.01;
+           [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                progress+=0.01;
+                [TFYAlert showRoundDeterminateWithProgress:progress status:[NSString stringWithFormat:@"完成%.0f%%",progress*100]];
                 if (progress >= 1) {
                     [TFYAlert hide];
                     [timer invalidate];

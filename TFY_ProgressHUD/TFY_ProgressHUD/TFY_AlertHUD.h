@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "TFY_ProgressHUD.h"
+#import "TFY_PopupMenu.h"
 
 #define TFYAlert [TFY_AlertHUD shareInstance]
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface TFY_AlertHUD : NSObject
 
@@ -35,6 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** 进度条 */
 - (void)showBarDeterminateWithProgress:(CGFloat)progress;
 - (void)showBarDeterminateWithProgress:(CGFloat)progress status:(nullable NSString *)status;
+/**圆形进度条**/
+- (void)showRoundDeterminateWithProgress:(CGFloat)progress;
+- (void)showRoundDeterminateWithProgress:(CGFloat)progress status:(nullable NSString *)status;
+/**自定义进度条**/
+- (void)showWithProgress:(CGFloat)progress Mode:(ProgressHUDMode)mode status:(nullable NSString *)status;
 
 /** 隐藏 */
 - (void)hide;

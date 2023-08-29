@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,7 +62,6 @@
 		36241FDE229629D000AFE2B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36344ADB2A6BB54800F17CA6 /* TFY_AlertHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_AlertHUD.h; sourceTree = "<group>"; };
 		36344ADC2A6BB54800F17CA6 /* TFY_AlertHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFY_AlertHUD.m; sourceTree = "<group>"; };
-		3638B05E2508A06F00F71DC7 /* TFY_ProgressHMB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_ProgressHMB.h; sourceTree = "<group>"; };
 		3655DABF22953B2E001CAE7B /* TFY_ProgressHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TFY_ProgressHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3655DAC922953B2E001CAE7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3655DACB22953B2F001CAE7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -217,7 +216,6 @@
 		3655DB0822954503001CAE7B /* TFY_ProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				3638B05E2508A06F00F71DC7 /* TFY_ProgressHMB.h */,
 				3655DB0922954503001CAE7B /* TFY_ProgressHUD.h */,
 				3655DB0A22954503001CAE7B /* TFY_ProgressHUD.m */,
 				3655DB0B22954503001CAE7B /* TFY_ProgressHUD.bundle */,
