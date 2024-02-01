@@ -483,7 +483,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
             // Update to indeterminate indicator
             [indicator removeFromSuperview];
             self.indicator = TFY_AUTORELEASE([[UIActivityIndicatorView alloc]
-                                             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]);
+                                             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge]);
             [(UIActivityIndicatorView *)indicator startAnimating];
             [self addSubview:indicator];
         }

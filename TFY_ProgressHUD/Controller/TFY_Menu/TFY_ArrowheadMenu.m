@@ -305,8 +305,30 @@
     } else if ([tSwitch isKindOfClass:[UIBarItem class]]) {// 导航栏或标签按钮
         view = [tSwitch valueForKey:@"view"];
     }
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = self.appKeyWindow;
     self.startFrame = [view convertRect:view.bounds toView:window];// 转成相对于self.view的绝对坐标，因为传过来的控件不一定是self.view的直接子视图
+}
+
+- (UIWindow *)appKeyWindow {
+    UIWindow *keywindow = nil;
+    if (@available(iOS 13.0, *)) {
+        for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive) {
+                if (@available(iOS 15.0, *)) {
+                    keywindow = scene.keyWindow;
+                }
+                if (keywindow == nil) {
+                    for (UIWindow *window in scene.windows) {
+                        if (window.windowLevel == UIWindowLevelNormal && window.hidden == NO && CGRectEqualToRect(window.bounds, UIScreen.mainScreen.bounds)) {
+                            keywindow = window;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return keywindow;
 }
 
 #pragma mark- 弹出方法

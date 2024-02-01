@@ -32,7 +32,7 @@
 #pragma mark- 2.实现菜单推出方法
 - (void)presentMenuView {
     // 获取根式控制器rootViewController，并将rootViewController设置为当前主控制器（防止菜单弹出时，部分被导航栏或标签栏遮盖）
-    UIWindow *window = [self lastWindow];
+    UIWindow *window = [self appKeyWindow];
     UIViewController *rootVC = [self getTheLatestViewController:window.rootViewController];
     rootVC.definesPresentationContext = YES;
     // 当前主控制器推出菜单栏
@@ -46,23 +46,28 @@
     return [self getTheLatestViewController:vc.presentedViewController];
 }
 
-- (UIWindow*)lastWindow {
-    NSEnumerator  *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];
-    for (UIWindow *window in frontToBackWindows) {
-        BOOL windowOnMainScreen = window.screen == UIScreen.mainScreen;
-
-        BOOL windowIsVisible = !window.hidden&& window.alpha>0;
-
-        BOOL windowLevelSupported = (window.windowLevel >= UIWindowLevelNormal && window.windowLevel <= UIWindowLevelNormal);
-
-        BOOL windowKeyWindow = window.isKeyWindow;
-        
-        if (windowOnMainScreen && windowIsVisible && windowLevelSupported && windowKeyWindow) {
-            return window;
+- (UIWindow *)appKeyWindow {
+    UIWindow *keywindow = nil;
+    if (@available(iOS 13.0, *)) {
+        for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive) {
+                if (@available(iOS 15.0, *)) {
+                    keywindow = scene.keyWindow;
+                }
+                if (keywindow == nil) {
+                    for (UIWindow *window in scene.windows) {
+                        if (window.windowLevel == UIWindowLevelNormal && window.hidden == NO && CGRectEqualToRect(window.bounds, UIScreen.mainScreen.bounds)) {
+                            keywindow = window;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
-    return [UIApplication sharedApplication].keyWindow;
+    return keywindow;
 }
+
 #pragma mark- 3.菜单移除方法
 - (void)removeMenuView {
     [self dismissViewControllerAnimated:NO completion:nil];

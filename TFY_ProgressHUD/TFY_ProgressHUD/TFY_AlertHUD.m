@@ -41,7 +41,7 @@
     if (_hud) {
         [self hide];
     }
-    _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+    _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
     if (status) {
         _hud.detailsLabelText = status;
     }else{
@@ -53,7 +53,7 @@
     if (_hud) {
         [self hide];
     }
-    _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+    _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = ProgressHUDModeCustomView;
     UIImage *image = [[self tfy_fileImage:@"lg_hud_success"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
@@ -66,7 +66,7 @@
     if (_hud) {
         [self hide];
     }
-    _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+    _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = ProgressHUDModeCustomView;
     UIImage *image = [[self tfy_fileImage:@"lg_hud_error"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
@@ -86,7 +86,7 @@
     if (_hud) {
         [self hide];
     }
-    _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+    _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = ProgressHUDModeCustomView;
     UIImage *image = [[self tfy_fileImage:@"lg_hud_warning"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
@@ -99,7 +99,7 @@
     if (_hud) {
         [self hide];
     }
-    _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+    _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = ProgressHUDModeText;
     _hud.detailsLabelText = status;
@@ -111,7 +111,7 @@
     if (_hud) {
         [self hide];
     }
-    _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+    _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = ProgressHUDModeText;
     _hud.detailsLabelText = status;
@@ -130,7 +130,7 @@
         [self hide];
     }
     if (!_hud) {
-        _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+        _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
         _hud.detailsLabelText = status;
         _hud.mode = ProgressHUDModeDeterminateHorizontalBar;
     }
@@ -151,7 +151,7 @@
         [self hide];
     }
     if (!_hud) {
-        _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+        _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
         _hud.detailsLabelText = status;
         _hud.mode = ProgressHUDModeDeterminate;
     }
@@ -168,7 +168,7 @@
         [self hide];
     }
     if (!_hud) {
-        _hud = [TFY_ProgressHUD showHUDAddedTo:[self lastWindow] animated:YES];
+        _hud = [TFY_ProgressHUD showHUDAddedTo:[self appKeyWindow] animated:YES];
         _hud.detailsLabelText = status;
         _hud.mode = mode;
     }
@@ -185,22 +185,26 @@
     _hud = nil;
 }
 
-- (UIWindow*)lastWindow {
-    NSEnumerator  *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];
-    for (UIWindow *window in frontToBackWindows) {
-        BOOL windowOnMainScreen = window.screen == UIScreen.mainScreen;
-
-        BOOL windowIsVisible = !window.hidden&& window.alpha>0;
-
-        BOOL windowLevelSupported = (window.windowLevel >= UIWindowLevelNormal && window.windowLevel <= UIWindowLevelNormal);
-
-        BOOL windowKeyWindow = window.isKeyWindow;
-        
-        if (windowOnMainScreen && windowIsVisible && windowLevelSupported && windowKeyWindow) {
-            return window;
+- (UIWindow *)appKeyWindow {
+    UIWindow *keywindow = nil;
+    if (@available(iOS 13.0, *)) {
+        for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive) {
+                if (@available(iOS 15.0, *)) {
+                    keywindow = scene.keyWindow;
+                }
+                if (keywindow == nil) {
+                    for (UIWindow *window in scene.windows) {
+                        if (window.windowLevel == UIWindowLevelNormal && window.hidden == NO && CGRectEqualToRect(window.bounds, UIScreen.mainScreen.bounds)) {
+                            keywindow = window;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
-    return [UIApplication sharedApplication].keyWindow;
+    return keywindow;
 }
 
 @end
